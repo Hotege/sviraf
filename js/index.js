@@ -42,9 +42,21 @@ function uploadAndFilter() {
             postIrafl("/api/irafl/gaussblur?r=" + document.getElementById("in_1_radius").value);
             break;
         case 2:
-            var r = document.getElementById("in_2_radius").value;
-            var k = document.getElementById("in_2_search_times").value;
+            break;
+        case 3:
+            var r = document.getElementById("in_3_radius").value;
+            var k = document.getElementById("in_3_search_times").value;
             postIrafl("/api/irafl/voronoi?r=" + r + "&k=" + k);
             break;
     }
+}
+function switchTag(nid) {
+    selected = nid;
+    var count = 4;
+    for (var i = 0; i < count; i++) {
+        document.getElementById("t_" + i.toString()).style.backgroundColor = "white";
+        document.getElementById("d_" + i.toString()).style.display = "none";
+    }
+    document.getElementById("t_" + nid.toString()).style.backgroundColor = "lightpink";
+    document.getElementById("d_" + nid.toString()).style.display = "block";
 }
