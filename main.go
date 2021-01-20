@@ -21,6 +21,8 @@ func main() {
     app := iris.New()
     app.Use(recover.New())
     app.Use(logger.New())
+    app.RegisterView(iris.HTML("templates", ".html"))
+    app.Handle("GET", "/", func(ctx iris.Context) { ctx.View("index.html") })
     app.PartyFunc(api.APIRoute, api.APIGroup)
     app.Run(iris.Addr(":62934"))
     C.IRAFL_Terminate()
