@@ -17,7 +17,8 @@
         <div>
             <a id="t_0" onclick="switchTag(0);" style="background-color: lightpink;">gray</a>
             <a id="t_1" onclick="switchTag(1);">gauss blur</a>
-            <a id="t_2" onclick="switchTag(2);">voronoi</a>
+            <a id="t_2" onclick="switchTag(2);">lut3d</a>
+            <a id="t_3" onclick="switchTag(3);">voronoi</a>
         </div>
         <div>
             <div id="d_0" style="display: block;">
@@ -26,14 +27,21 @@
                 <span>radius: <input id="in_1_radius" type="text" value="3" /></span>
             </div>
             <div id="d_2" style="display: none;">
-                <span>radius: <input id="in_2_radius" type="text" value="32.0" /></span>
+                <input id="in_2_text" readonly="1" onclick="selectFile('in_2_file', 'in_2_img', 'in_2_text');" />
+                <span>filter size: <input id="in_2_filter_size" type="text" value="16" /></span>
                 <br>
-                <span>search times: <input id="in_2_search_times" type="text" value="32" /></span>
+                <input style="display: none;" type="file" id="in_2_file" name="filter" accept="image/x-png,image/jpeg,image/bmp" />
+                <img id="in_2_img" />
+            </div>
+            <div id="d_3" style="display: none;">
+                <span>radius: <input id="in_3_radius" type="text" value="32.0" /></span>
+                <br>
+                <span>search times: <input id="in_3_search_times" type="text" value="32" /></span>
             </div>
         </div>
-        <table style="width: 100%;" border="0" cellspacing="0" cellpading="0">
+        <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td><input id="input_text" style="width: 100%;" readonly="1" onclick="selectFile();" /></td>
+                <td><input id="input_text" style="width: 100%;" readonly="1" onclick="selectFile('file', 'source', 'input_text');" /></td>
                 <td width="64px"><button style="width: 100%;" onclick="uploadAndFilter();">Button</button></td>
             </tr>
         </table>
