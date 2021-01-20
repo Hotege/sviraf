@@ -23,7 +23,7 @@ var VoronoiFunc func(ctx iris.Context) = func(ctx iris.Context) {
     defer file.Close()
     radius, _ := strconv.ParseFloat(ctx.URLParams()["r"], 64)
     k, _ := strconv.ParseInt(ctx.URLParams()["k"], 10, 32)
-    var param *C.IRAFL_VP = &C.IRAFL_VP{
+    var param C.IRAFL_VP = C.IRAFL_VP {
         r: C.double(radius),
         k: C.uint(k),
     }
@@ -34,7 +34,7 @@ var VoronoiFunc func(ctx iris.Context) = func(ctx iris.Context) {
     }
     data := img.ToBytes()
     res := make([]byte, img.Cols() * img.Rows() * 4)
-    execute(res, data, img.Cols(), img.Rows(), 8, unsafe.Pointer(param))
+    execute(res, data, img.Cols(), img.Rows(), 8, unsafe.Pointer(&param))
     out, _ := gocv.NewMatFromBytes(img.Rows(), img.Cols(), img.Type(), res)
     streamDst, _ := gocv.IMEncode(gocv.PNGFileExt, out)
     ctx.Binary(streamDst)
