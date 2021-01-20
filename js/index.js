@@ -1,4 +1,6 @@
 // index.js
+var count = 4;
+var tagsName = ["gray", "gaussblur", "lut3d", "voronoi"];
 var selected = 0;
 function selectFile(fileId, displayId, textId) {        
     var input = document.getElementById(fileId);
@@ -72,11 +74,30 @@ function uploadAndFilter() {
 }
 function switchTag(nid) {
     selected = nid;
-    var count = 4;
     for (var i = 0; i < count; i++) {
         document.getElementById("t_" + i.toString()).style.backgroundColor = "white";
         document.getElementById("d_" + i.toString()).style.display = "none";
     }
     document.getElementById("t_" + nid.toString()).style.backgroundColor = "lightpink";
     document.getElementById("d_" + nid.toString()).style.display = "block";
+}
+function insertIrafl() {
+    var tags = document.getElementById("irafl_tags");
+    for (var i = 0; i < count; i++) {
+        var _a = document.createElement("a");
+        _a.id = "t_" + (i).toString();
+        _a.style.border = "1px solid black";
+        _a.style.paddingLeft = "4px";
+        _a.style.paddingRight = "4px";
+        _a.onclick = function(id) {
+            return function() {
+                switchTag(id);
+            };
+        }(i);
+        _a.innerHTML = tagsName[i];
+        if (i == 0){
+            _a.style.backgroundColor = "lightpink";
+        }
+        tags.appendChild(_a);
+    }
 }

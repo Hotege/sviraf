@@ -7,7 +7,11 @@
     <script>
         window.onload = function() {
             document.getElementById("index_css").href = "css/index.css?_v=" + Math.random();
-            document.getElementById("index_js").src = "js/index.js?_v=" + Math.random();
+            var indexJs = document.getElementById("index_js");
+            indexJs.src = "js/index.js?_v=" + Math.random();
+            indexJs.onload = function() {
+                insertIrafl();
+            };
         };
     </script>
 </head>
@@ -16,13 +20,9 @@
         <p>SVIRAF Index</p>
     </div>
     <div>
-        <div>
-            <a id="t_0" onclick="switchTag(0);" style="background-color: lightpink;">gray</a>
-            <a id="t_1" onclick="switchTag(1);">gauss blur</a>
-            <a id="t_2" onclick="switchTag(2);">lut3d</a>
-            <a id="t_3" onclick="switchTag(3);">voronoi</a>
+        <div id="irafl_tags">
         </div>
-        <div>
+        <div id="irafl_params">
             <div id="d_0" style="display: block;">
             </div>
             <div id="d_1" style="display: none;">
