@@ -17,6 +17,69 @@ function selectFile(fileId, displayId, textId) {
         };
     };
 }
+var paramsProc = [
+    function(ctn, id) {
+    },
+    function(ctn, id) {
+        var sp = document.createElement("span");
+        sp.innerHTML = "radius: ";
+        var input = document.createElement("input");
+        input.id = "in_" + id.toString() + "_radius";
+        input.type = "text";
+        input.value = 3;
+        sp.appendChild(input);
+        ctn.appendChild(sp);
+    },
+    function(ctn, id) {
+        var txt = document.createElement("input");
+        txt.id = "in_" + id.toString() + "_text";
+        txt.readonly = "1";
+        txt.onclick = function(n) {
+            return function() {
+                selectFile("in_" + n.toString() + "_file", "in_" + n.toString() + "_img", "in_" + n.toString() + "_text");
+            };
+        }(id);
+        ctn.appendChild(txt);
+        var sp = document.createElement("span");
+        sp.innerHTML = "filter size: ";
+        var tfs = document.createElement("input");
+        tfs.id = "in_" + id.toString() + "_filter_size";
+        tfs.type = "text";
+        tfs.value = 16;
+        sp.appendChild(tfs);
+        ctn.appendChild(sp);
+        ctn.appendChild(document.createElement("br"));
+        var filter = document.createElement("input");
+        filter.style.display = "none";
+        filter.type = "file";
+        filter.id = "in_" + id.toString() + "_file";
+        filter.name = "filter";
+        filter.accpet = "image/x-png,image/jpeg,image/bmp";
+        ctn.appendChild(filter);
+        var img = document.createElement("img");
+        img.id = "in_" + id.toString() + "_img";
+        ctn.appendChild(img);
+    },
+    function(ctn, id) {
+        var sp1 = document.createElement("span");
+        sp1.innerHTML = "radius: ";
+        var r = document.createElement("input");
+        r.id = "in_" + id.toString() + "_radius";
+        r.type = "text";
+        r.value = "32.0";
+        sp1.appendChild(r);
+        ctn.appendChild(sp1);
+        ctn.appendChild(document.createElement("br"));
+        var sp2 = document.createElement("span");
+        sp2.innerHTML = "search times: ";
+        var k = document.createElement("input");
+        k.id = "in_" + id.toString() + "_search_times";
+        k.type = "text";
+        k.value = "32";
+        sp2.appendChild(k);
+        ctn.appendChild(sp2);
+    }
+];
 function postIrafl(url) {
     var resultImg = document.getElementById("result");
     var form = new FormData();
@@ -83,6 +146,7 @@ function switchTag(nid) {
 }
 function insertIrafl() {
     var tags = document.getElementById("irafl_tags");
+    var params = document.getElementById("irafl_params");
     for (var i = 0; i < count; i++) {
         var _a = document.createElement("a");
         _a.id = "t_" + (i).toString();
@@ -99,5 +163,14 @@ function insertIrafl() {
             _a.style.backgroundColor = "lightpink";
         }
         tags.appendChild(_a);
+        var d = document.createElement("div");
+        d.id = "d_" + i.toString();
+        if (i == 0) {
+            d.style.display = "block";
+        } else {
+            d.style.display = "none";
+        }
+        paramsProc[i](d, i);
+        params.appendChild(d);
     }
 }
