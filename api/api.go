@@ -21,5 +21,6 @@ var APIGroup func(users iris.Party) = func(users iris.Party) {
     })
     users.Post(irafl.GrayRoute, irafl.GrayFunc)
     users.Post(irafl.GaussblurRoute, irafl.GaussblurFunc)
+    users.Post(irafl.Lut3DRoute, irafl.Lut3DFunc)
     users.Post(irafl.VoronoiRoute, irafl.VoronoiFunc)
 }
