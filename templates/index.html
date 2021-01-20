@@ -5,8 +5,10 @@
     <link id="index_css" rel="stylesheet" type="text/css" />
     <script id="index_js" type="text/javascript"></script>
     <script>
-        document.getElementById("index_css").href = "css/index.css?_v=" + Math.random();
-        document.getElementById("index_js").src = "js/index.js?_v=" + Math.random();
+        window.onload = function() {
+            document.getElementById("index_css").href = "css/index.css?_v=" + Math.random();
+            document.getElementById("index_js").src = "js/index.js?_v=" + Math.random();
+        };
     </script>
 </head>
 <body>
