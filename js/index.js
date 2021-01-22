@@ -50,7 +50,7 @@ var paramsProc = [
         ctn.appendChild(sp);
         ctn.appendChild(document.createElement("br"));
         var filter = document.createElement("input");
-        filter.style.display = "none";
+        filter.className = "hidden-input";
         filter.type = "file";
         filter.id = "in_" + id.toString() + "_file";
         filter.name = "filter";
@@ -150,9 +150,7 @@ function insertIrafl() {
     for (var i = 0; i < count; i++) {
         var _a = document.createElement("a");
         _a.id = "t_" + (i).toString();
-        _a.style.border = "1px solid black";
-        _a.style.paddingLeft = "4px";
-        _a.style.paddingRight = "4px";
+        _a.className = "tags";
         _a.onclick = function(id) {
             return function() {
                 switchTag(id);

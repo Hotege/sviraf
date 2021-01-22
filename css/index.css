@@ -1,1 +1,9 @@
-/* index.css */
+.hidden-input {
+    display: none;
+}
+
+.tags {
+    border: 1px solid black;
+    padding-left: 4px;
+    padding-right: 4px;
+}
