@@ -96,6 +96,7 @@ function postIrafl(url) {
             };
         }
     };
+    resultImg.src = "/file/loading.gif";
     xhr.send(form);
 }
 function postIraflLut3D(url) {
@@ -115,6 +116,7 @@ function postIraflLut3D(url) {
             };
         }
     };
+    resultImg.src = "/file/loading.gif";
     xhr.send(form);
 }
 function uploadAndFilter() {
