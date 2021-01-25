@@ -24,6 +24,8 @@ func main() {
     app.RegisterView(iris.HTML("templates", ".html"))
     app.HandleDir("/css", "./css")
     app.HandleDir("/js", "./js")
+    app.Favicon("./file/sviraf.ico")
+    app.HandleDir("/file", "./file")
     app.Handle("GET", "/", func(ctx iris.Context) { ctx.View("index.html") })
     app.PartyFunc(api.APIRoute, api.APIGroup)
     app.Run(iris.Addr(":62934"))

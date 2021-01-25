@@ -5,68 +5,14 @@
     <link id="index_css" rel="stylesheet" type="text/css" />
     <script id="index_js" type="text/javascript"></script>
     <script>
-        document.getElementById("index_css").href = "css/index.css?_v=" + Math.random();
-        document.getElementById("index_js").src = "js/index.js?_v=" + Math.random();
-
-        var selected = 0;
-        function selectFile() {        
-            var input = document.getElementById("file");
-            var sourceImg = document.getElementById("source");
-            var inputText = document.getElementById("input_text");
-            input.click();
-            input.onchange = event => {
-                var file = event.target.files[0];
-                inputText.value = file.name;
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function() {
-                    sourceImg.src = reader.result;
-                };
+        window.onload = function() {
+            document.getElementById("index_css").href = "css/index.css?_v=" + Math.random();
+            var indexJs = document.getElementById("index_js");
+            indexJs.src = "js/index.js?_v=" + Math.random();
+            indexJs.onload = function() {
+                insertIrafl();
             };
-        }
-        function postIrafl(url) {
-            var resultImg = document.getElementById("result");
-            var form = new FormData();
-            form.append("file", document.getElementById("file").files[0]);
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.responseType = "blob";
-            xhr.onload = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(xhr.response);
-                    reader.onload = function (e) {
-                        resultImg.src = reader.result;
-                    };
-                }
-            };
-            xhr.send(form);
-        }
-        function uploadAndFilter() {
-            switch (selected) {
-                case 0:
-                    postIrafl("/api/irafl/gray");
-                    break;
-                case 1:
-                    postIrafl("/api/irafl/gaussblur?r=" + document.getElementById("in_1_radius").value);
-                    break;
-                case 2:
-                    var r = document.getElementById("in_2_radius").value;
-                    var k = document.getElementById("in_2_search_times").value;
-                    postIrafl("/api/irafl/voronoi?r=" + r + "&k=" + k);
-                    break;
-            }
-        }
-        function switchTag(nid) {
-            selected = nid;
-            var count = 3;
-            for (var i = 0; i < count; i++) {
-                document.getElementById("t_" + i.toString()).style.backgroundColor = "white";
-                document.getElementById("d_" + i.toString()).style.display = "none";
-            }
-            document.getElementById("t_" + nid.toString()).style.backgroundColor = "lightpink";
-            document.getElementById("d_" + nid.toString()).style.display = "block";
-        }
+        };
     </script>
 </head>
 <body>
@@ -74,38 +20,23 @@
         <p>SVIRAF Index</p>
     </div>
     <div>
-        <div>
-            <a id="t_0" onclick="switchTag(0);" style="background-color: lightpink;">gray</a>
-            <a id="t_1" onclick="switchTag(1);">gauss blur</a>
-            <a id="t_2" onclick="switchTag(2);">voronoi</a>
+        <div id="irafl_tags">
         </div>
-        <div>
-            <div id="d_0" style="display: block;">
-            </div>
-            <div id="d_1" style="display: none;">
-                <span>radius: <input id="in_1_radius" type="text" value="3" /></span>
-            </div>
-            <div id="d_2" style="display: none;">
-                <span>radius: <input id="in_2_radius" type="text" value="32.0" /></span>
-                <br>
-                <span>search times: <input id="in_2_search_times" type="text" value="32" /></span>
-            </div>
+        <div id="irafl_params">
         </div>
-        <table style="width: 100%;" border="0" cellspacing="0" cellpading="0">
+        <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td><input id="input_text" style="width: 100%;" readonly="1" onclick="selectFile();" /></td>
+                <td><input id="input_text" style="width: 100%;" readonly="1" onclick="selectFile('file', 'source', 'input_text');" /></td>
                 <td width="64px"><button style="width: 100%;" onclick="uploadAndFilter();">Button</button></td>
+                <td><input class="hidden-input" type="file" id="file" name="file" accept="image/x-png,image/jpeg,image/bmp" /></td>
+            <tr>
+        </table>
+        <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="width: 50%;"><img id="source" class="displayer" /></td>
+                <td style="width: 50%;"><img id="result" class="displayer" /></td>
             </tr>
         </table>
-        <input style="display: none;" type="file" id="file" name="file" accept="image/x-png,image/jpeg,image/bmp" />
-        <div id="div_src" style="display: block;">
-            <!--<canvas id="source">Canvas is not supported</canvas>-->
-            <img id="source" />
-        </div>
-        <div id="div_res" style="display: block;">
-            <!--<canvas id="result">Canvas is not supported</canvas>-->
-            <img id="result" />
-        </div>
     </div>
 </body>
 </html>
